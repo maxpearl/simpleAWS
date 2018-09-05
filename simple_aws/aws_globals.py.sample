@@ -1,0 +1,24 @@
+"""
+aws_globals.py
+
+Store global constants here - copy this file to aws_globals.py and add your data
+
+"""
+
+# Default AWS Region
+aws_default_region = 'us-east-1'
+
+# Default AWS Profile
+aws_default_profile = 'default'
+
+# Default SNS ARN
+sns_default_arn = 
+
+# Default SNS Subect
+sns_default_subject = 
+
+# Default SNS Message
+sns_default_message = 
+
+# Default SQS Queue
+sqs_default_queue = 
