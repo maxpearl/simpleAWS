@@ -19,4 +19,4 @@ SimpleAWS uses profiles and secret/access keys. Put a file called 'credentials' 
 aws_access_key_id = <key>
 aws_secret_access_key = <key>
 
-(If you only have one profile, you can name it 'Default' - that is the code's default profile.)
+(If you only have one profile, you can name it 'default' - that is the code's default profile.)

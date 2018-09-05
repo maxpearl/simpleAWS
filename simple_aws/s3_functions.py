@@ -27,8 +27,7 @@ class S3Simple(object):
                                     region_name=self.region_name)
         self.s3 = session.resource('s3')
 
-        if 'bucket' in kwargs:
-            print("Bucket Name:",kwargs['bucket_name'])
+        if 'bucket_name' in kwargs:
             self.bucket_name = kwargs['bucket_name']
             self.bucket = self.s3.Bucket(kwargs['bucket_name'])
 
@@ -107,13 +106,12 @@ class S3Simple(object):
         """
         Create new S3 bucket
         """
-        # TODO Add location constraint - check for not us-east-1
         if self.region_name != 'us-east-1':
             self.bucket = self.s3.create_bucket(
                 ACL='private',
                 Bucket=self.bucket_name,
                 CreateBucketConfiguration={
-                                'LocationConstraint': region
+                                'LocationConstraint': self.region_name
                             }
             )
         else:
@@ -122,7 +120,15 @@ class S3Simple(object):
                 Bucket=self.bucket_name
             )
 
-        return bucket
+        return
+
+    def s3_delete_bucket(self):
+        """
+        Delete Bucket
+        """
+        self.bucket.delete()
+
+        return
 
     def put_to_s3(self, **kwargs):
         """
@@ -138,9 +144,9 @@ class S3Simple(object):
             Body=fake_handle.read()
         )
         
-        return True
+        return
 
-    def send_file_to_s3(**kwargs):
+    def send_file_to_s3(self,**kwargs):
         """
         Sends local file to an S3 bucket
         """
