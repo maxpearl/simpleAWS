@@ -8,7 +8,7 @@ version .1
 import boto3
 from aws_globals import *
 
-class SqsSimple(object):
+class sqsSimple(object):
     def __init__(self, **kwargs):
         """
         Initializes SQS connection and Queue
@@ -22,23 +22,27 @@ class SqsSimple(object):
         else:
             profile = aws_default_profile
 
-        session = boto3.session.Session(profile_name=kwargs['profile'],
-                                    region_name=kwargs['region'])     
+        session = boto3.session.Session(profile_name=profile,
+                                    region_name=region_name)     
         self.sqs = session.resource('sqs')
         if 'queue' not in kwargs:
-            queue_name = sqs_default_queue
+            self.queue_name = sqs_default_queue
         else:
-            queue_name = kwargs['queue']
-        
-        self.queue = self.sqs.get_queue_by_name(QueueName=queue_name)
+            self.queue_name = kwargs['queue']
 
         return
 
-    def get_sqs_messages(self):
+    def get_sqs_messages(self, **kwargs):
         """
         Get all tenant messages waiting in SQS Queue
         """
-        messages = self.queue.receive_messages()
+        queue = self.sqs.get_queue_by_name(QueueName=self.queue_name)
+        if 'num_messages' in kwargs:
+            num_messages = kwargs['num_messages']
+        else:
+            num_messages = sqs_default_messages
+            
+        messages = queue.receive_messages(MaxNumberOfMessages=num_messages)
         all_messages = []
         for message in messages:
             all_messages.append(message.body)
@@ -49,15 +53,17 @@ class SqsSimple(object):
         """
         This will send an SQS message to the proper queue
         """
+
         if 'message' not in kwargs:
             print("No message!")
             return False
 
-        self.queue.send_message(
+        queue = self.sqs.get_queue_by_name(QueueName=self.queue_name)
+        queue.send_message(
             MessageBody=kwargs['message']
         )
             
-        return True
+        return
 
     def create_queue(self):
         """
@@ -71,7 +77,16 @@ class SqsSimple(object):
         """
         Purge a specific queue
         """
+        queue = self.sqs.get_queue_by_name(QueueName=self.queue_name)
+        queue.purge()
         
-        self.queue.purge()
-        
-        return True
+        return
+
+    def delete_queue(self):
+        """
+        Delete a specific queue
+        """
+        queue = self.sqs.get_queue_by_name(QueueName=self.queue_name)
+        queue.delete()
+
+        return

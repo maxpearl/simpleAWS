@@ -20,3 +20,209 @@ aws_access_key_id = <key>
 aws_secret_access_key = <key>
 
 (If you only have one profile, you can name it 'default' - that is the code's default profile.)
+
+## Usage
+
+```
+from dynamodb_functions import *
+from s3_functions import *
+from sqs_functions import *
+from sns_functions import *
+```
+
+### S3
+
+*List buckets*
+
+```
+s3simple = S3Simple(region_name='region', profile='profile') #region and profile are optional
+bucket_list = s3simple.list_buckets()
+```
+
+*Get a list of files in a bucket*
+```
+s3simple = S3Simple(bucket_name='bucket-name')
+file_list = s3simple.s3_bucket_contents()
+```
+
+*Get a filtered list of files in a bucket*
+```
+s3simple = S3Simple(bucket_name='bucket-name')
+filtered_list = s3simple.s3_bucket_filter(prefix='file_name.ext')
+```
+
+*Download a file*
+```
+s3simple = S3Simple(bucket_name='bucket-name')
+s3simple.download_file(file_name='file_name.ext', output_file='/path/file_name.txt')
+```
+
+*Create Bucket*
+```
+s3simple = S3Simple(bucket_name='new-bucket-name')
+new_bucket = s3simple3.s3_new_bucket()
+```
+
+*Delete Bucket*
+``` 
+s3simple = S3Simple(bucket_name='bucket-name')
+s3simple.s3_delete_bucket()
+```
+
+*Saving text to file*
+```
+s3simple = S3Simple(bucket_name='bucket-name')
+key = 'test_item.txt'
+    body = """
+    Hundreds of thousands light years shores of the cosmic ocean circumnavigated white dwarf Rig Veda. 
+    Courage of our questions something incredible is waiting to be known extraordinary claims require 
+    extraordinary evidence brain is the seed of intelligence laws of physics extraordinary claims require 
+    extraordinary evidence. Dream of the mind's eye invent the universe emerged into consciousness made 
+    in the interiors of collapsing stars something incredible is waiting to be known finite but unbounded.
+    """
+s3simple.put_to_s3(key=key, body=body)
+```
+
+*Sending file to S3*
+```
+s3simple = S3Simple(bucket_name='bucket-name')
+s3simple.send_file_to_s3(local_file='/path/file_name.ext', s3_file='file_name.ext')
+```
+
+*Delete File*
+```
+s3simple = S3Simple(bucket_name='bucket-name')
+s3simple.delete_s3_file(file_name=key)
+```
+
+*Delete Bucket*
+```
+s3simple = S3Simple(bucket_name='bucket-name')
+s3simple.s3_delete_bucket()
+```
+
+### DynamoDB
+
+*Checking to see if a table exists*
+```
+dbsimple = DynamodbSimple(table_name='table_name', region_name='region', profile='profile') 
+    #region and profile are optional
+    if dbsimple.check_table(): 
+       ...
+```
+
+*Creating Table*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+dbsimple.create_table(
+    partition_key='foo',
+    sort_key='bar', #optional
+    throughput='5'
+)
+```
+
+*Writing data in bulk*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+dbsimple.batch_write_items(items=items) # items is a list of dicts
+``` 
+
+*Writing individual items*
+``
+dbsimple = DynamodbSimple(table_name='table_name')
+for item in items:
+    dbsimple.insert_item(item=item) #item is a dict
+```
+
+*Dynamo Query*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+data = dbsimple.dynamo_query(
+    field='foo', # field must be partition key, sort key or indexed
+    value='baseball'
+    )
+```
+
+*Dynamo Scan*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+data = dbsimple.dynamo_scan(
+    key='moo', # any key
+    value='mar'
+)
+```
+
+*Get all data*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+all_data = dbsimple.get_all()
+```
+
+*Delete key/value pair*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+dbsimple.delete_item(
+    key='foo', # key must be partition key, sort key or indexed
+    value='giraffe'
+)
+```
+
+*Update DynamoDB entry*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+dbsimple.update_item(
+    key='woo',
+    value='sageing',
+    id_key='foo', # key must be partition key, sort key or indexed
+    id_value='yar'
+)
+```
+
+*Delete DynamoDB table*
+```
+dbsimple = DynamodbSimple(table_name='table_name')
+dbsimple.delete_table()
+```
+
+### SQS
+
+*Create Queue*
+```
+sqs_simple = sqsSimple(region_name='region', profile='profile') # region and profile are optional
+sqs_simple.create_queue(queue='queue_name') #queue name is optional - default is set in globals
+```
+
+*Send Message*
+```
+sqs_simple = sqsSimple()
+sqs_simple.send_sqs_message(message=message) # message is text
+```
+
+*Get Messages*
+```
+sqs_simple = sqsSimple()
+messages = sqs_simple.get_sqs_messages(num_messages=5) # num_messages is optional - default is set in globals
+```
+
+*Purge Queue*
+```
+sqs_simple = sqsSimple()
+sqs_simple.purge_queue()
+```
+
+*Delete Queue*
+```
+sqs_simple = sqsSimple()
+sqs_simple.delete_queue()
+```
+
+### SNS
+
+*Send Message*
+```
+sns_simple = snsSimple(region_name='region', profile='profile') #region and profile are optional
+sns_simple.send_notification(arn='AWS Topic ARN', subject='subject', message='message')
+# arn, subject and message are optional - defaults are set in globals file
+```
+
+

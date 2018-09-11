@@ -8,7 +8,7 @@ version 0.1
 import boto3
 from aws_globals import *
 
-class SnsSimple(object):
+class snsSimple(object):
 
     def __init__(self, **kwargs):
         """
@@ -23,8 +23,8 @@ class SnsSimple(object):
         else:
             profile = aws_default_profile
 
-        session = boto3.session.Session(profile_name=kwargs['profile'],
-                                    region_name=kwargs['region'])
+        session = boto3.session.Session(profile_name=profile,
+                                    region_name=region_name)
         self.sns = session.resource('sns')
 
         return
