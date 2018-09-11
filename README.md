@@ -8,7 +8,7 @@ The options are limited on purpose - this is not designed to replace boto3, but 
 
 ## Installation
 
-This package requires python 3.6+
+This package requires python 3.3+
 
 ```
 pip install .
@@ -17,7 +17,7 @@ pip install .
 OR
 
 ```
-pipenv install '-e .'
+pipenv --three install '-e .' # you don't need the --three option if your pipenv default is python3
 ```
 
 ## AWS Requirements
