@@ -106,9 +106,9 @@ s3simple.s3_delete_bucket()
 *Checking to see if a table exists*
 ```
 dbsimple = DynamodbSimple(table_name='table_name', region_name='region', profile='profile') 
-    #region and profile are optional
-    if dbsimple.check_table(): 
-       ...
+#region and profile are optional
+if dbsimple.check_table(): 
+    ...
 ```
 
 *Creating Table*
@@ -128,7 +128,7 @@ dbsimple.batch_write_items(items=items) # items is a list of dicts
 ``` 
 
 *Writing individual items*
-``
+```
 dbsimple = DynamodbSimple(table_name='table_name')
 for item in items:
     dbsimple.insert_item(item=item) #item is a dict
