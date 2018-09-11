@@ -12,6 +12,12 @@ The options are limited on purpose - this is not designed to replace boto3, but 
 pip install .
 ```
 
+OR
+
+```
+pipenv install '-e.'
+```
+
 ## AWS Requirements
 
 SimpleAWS uses profiles and secret/access keys. Put a file called 'credentials' inside the .aws directory in your home directory (the home of the user running this code.) The format of the file is:
@@ -155,7 +161,7 @@ data = dbsimple.dynamo_scan(
 *Get all data*
 ```
 dbsimple = DynamodbSimple(table_name='table_name')
-all_data = dbsimple.get_all()
+all_data = dbsimple.get_all() # returns a list of dicts
 ```
 
 *Delete key/value pair*
