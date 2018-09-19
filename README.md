@@ -31,18 +31,21 @@ from sqs_functions import *
 ```
 s3simple = S3Simple(region_name='region', profile='profile') #region and profile are optional
 bucket_list = s3simple.list_buckets()
+# returns a list
 ```
 
 *Get a list of files in a bucket*
 ```
 s3simple = S3Simple(bucket_name='bucket-name')
 file_list = s3simple.s3_bucket_contents()
+# returns a list
 ```
 
 *Get a filtered list of files in a bucket*
 ```
 s3simple = S3Simple(bucket_name='bucket-name')
 filtered_list = s3simple.s3_bucket_filter(prefix='file_name.ext')
+# returns a list
 ```
 
 *Download a file*
@@ -100,9 +103,10 @@ s3simple.s3_delete_bucket()
 *Checking to see if a table exists*
 ```
 dbsimple = DynamodbSimple(table_name='table_name', region_name='region', profile='profile') 
-#region and profile are optional
-if dbsimple.check_table(): 
+# region and profile are optional
+if dbsimple.check_table(): # returns True/False
     ...
+
 ```
 
 *Creating Table*
@@ -135,6 +139,7 @@ data = dbsimple.dynamo_query(
     field='foo', # field must be partition key, sort key or indexed
     value='baseball'
     )
+# returns a list of dicts
 ```
 
 *Dynamo Scan*
@@ -144,6 +149,7 @@ data = dbsimple.dynamo_scan(
     key='moo', # any key
     value='mar'
 )
+# returns a list of dicts
 ```
 
 *Get all data*
@@ -196,6 +202,7 @@ sqs_simple.send_sqs_message(message=message) # message is text
 ```
 sqs_simple = sqsSimple()
 messages = sqs_simple.get_sqs_messages(num_messages=5) # num_messages is optional - default is set in globals
+# returns a list
 ```
 
 *Purge Queue*
