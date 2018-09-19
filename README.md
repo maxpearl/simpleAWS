@@ -20,6 +20,8 @@ OR
 pipenv --three install '-e .' # you don't need the --three option if your pipenv default is python3
 ```
 
+Copy aws_globals.py.sample to aws_globals.py somewhere in your project tree, and fill in the global defaults.
+
 ## AWS Requirements
 
 SimpleAWS uses profiles and secret/access keys. Put a file called 'credentials' inside the .aws directory in your home directory (the home of the user running this code.) The format of the file is:
@@ -32,10 +34,7 @@ aws_secret_access_key = <key>
 ## Usage
 
 ```
-from dynamodb_functions import *
-from s3_functions import *
-from sqs_functions import *
-from sns_functions import *
+import simple_aws
 ```
 
 ### S3
