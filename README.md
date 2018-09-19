@@ -6,22 +6,6 @@ Simplified Libraries for some of the most common AWS resources. The purpose of S
 
 The options are limited on purpose - this is not designed to replace boto3, but to provide an easier entry into using AWS resources with python.
 
-## Installation
-
-This package requires python 3.3+
-
-```
-pip install .
-```
-
-OR
-
-```
-pipenv --three install '-e .' # you don't need the --three option if your pipenv default is python3
-```
-
-Copy aws_globals.py.sample to aws_globals.py somewhere in your project tree, and fill in the global defaults.
-
 ## AWS Requirements
 
 SimpleAWS uses profiles and secret/access keys. Put a file called 'credentials' inside the .aws directory in your home directory (the home of the user running this code.) The format of the file is:
@@ -34,7 +18,10 @@ aws_secret_access_key = <key>
 ## Usage
 
 ```
-import simple_aws
+from dynamodb_functions import *
+from s3_functions import *
+from sns_functions import *
+from sqs_functions import *
 ```
 
 ### S3
