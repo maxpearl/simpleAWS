@@ -6,7 +6,6 @@ SNS Functions
 version 0.1
 """
 import boto3
-from aws_globals import *
 
 class snsSimple(object):
 

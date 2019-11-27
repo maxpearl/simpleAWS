@@ -15,6 +15,10 @@ aws_secret_access_key = <key>
 
 (If you only have one profile, you can name it 'default' - that is the code's default profile.)
 
+## Installation
+
+`pip install simpleaws`
+
 ## Usage
 
 ```
@@ -29,7 +33,7 @@ from sqs_functions import *
 *List buckets*
 
 ```
-s3simple = S3Simple(region_name='region', profile='profile') #region and profile are optional
+s3simple = S3Simple(region_name='region', profile='profile')
 bucket_list = s3simple.list_buckets()
 # returns a list
 ```
@@ -188,8 +192,8 @@ dbsimple.delete_table()
 
 *Create Queue*
 ```
-sqs_simple = sqsSimple(region_name='region', profile='profile') # region and profile are optional
-sqs_simple.create_queue(queue='queue_name') #queue name is optional - default is set in globals
+sqs_simple = sqsSimple(region_name='region', profile='profile') 
+sqs_simple.create_queue(queue='queue_name')
 ```
 
 *Send Message*
@@ -201,7 +205,7 @@ sqs_simple.send_sqs_message(message=message) # message is text
 *Get Messages*
 ```
 sqs_simple = sqsSimple()
-messages = sqs_simple.get_sqs_messages(num_messages=5) # num_messages is optional - default is set in globals
+messages = sqs_simple.get_sqs_messages(num_messages=5)
 # returns a list
 ```
 
@@ -221,9 +225,8 @@ sqs_simple.delete_queue()
 
 *Send Message*
 ```
-sns_simple = snsSimple(region_name='region', profile='profile') #region and profile are optional
+sns_simple = snsSimple(region_name='region', profile='profile')
 sns_simple.send_notification(arn='AWS Topic ARN', subject='subject', message='message')
-# arn, subject and message are optional - defaults are set in globals file
 ```
 
 

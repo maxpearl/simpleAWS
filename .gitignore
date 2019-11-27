@@ -4,6 +4,7 @@ __pycache__
 
 # Setuptools distribution folder
 /dist/
+/build/
 
 # Python egg metadata
 /*.egg-info
@@ -14,6 +15,3 @@ simple_aws_tests.py
 # Pipfiles
 Pipfile
 Pipfile.lock
-
-# globals file
-aws_globals.py

@@ -6,7 +6,6 @@ version .1
 """
 import boto3
 import io
-from aws_globals import *
 
 class S3Simple(object):
 
@@ -16,12 +15,13 @@ class S3Simple(object):
         """
         if 'region_name' in kwargs:
             self.region_name = kwargs['region_name']
-        else: 
-            self.region_name = aws_default_region
+        else:
+            return False
+            
         if 'profile' in kwargs:
             profile = kwargs['profile']
         else:
-            profile = aws_default_profile
+            return False
 
         session = boto3.session.Session(profile_name=profile,
                                     region_name=self.region_name)
@@ -67,7 +67,6 @@ class S3Simple(object):
             max_keys = 1000 #S3 API default
         
         if 'prefix' not in kwargs.keys():
-            print("No Prefix (filter) defined!")
             return False
 
         object_summary_iterator = self.bucket.objects.filter(
@@ -135,7 +134,6 @@ class S3Simple(object):
         Save string to file in S3
         """
         if 'body' not in kwargs:
-            print("Nothing to save!")
             return False
 
         fake_handle = io.StringIO(kwargs['body'])
@@ -151,7 +149,6 @@ class S3Simple(object):
         Sends local file to an S3 bucket
         """
         if 'local_file' not in kwargs or 's3_file' not in kwargs:
-            print("No local and/or s3 file names defined!")
             return False
 
         # upload to s3

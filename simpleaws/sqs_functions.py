@@ -6,7 +6,6 @@ SQS Functions
 version .1
 """
 import boto3
-from aws_globals import *
 
 class sqsSimple(object):
     def __init__(self, **kwargs):
@@ -55,7 +54,6 @@ class sqsSimple(object):
         """
 
         if 'message' not in kwargs:
-            print("No message!")
             return False
 
         queue = self.sqs.get_queue_by_name(QueueName=self.queue_name)

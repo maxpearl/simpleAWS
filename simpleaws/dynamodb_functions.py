@@ -7,7 +7,6 @@ Super simplified AWS functions.
 """
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
-from aws_globals import *
 
 class DynamodbSimple(object):
 
@@ -21,15 +20,14 @@ class DynamodbSimple(object):
         if 'region_name' in kwargs:
             region_name = kwargs['region_name']
         else: 
-            region_name = aws_default_region
+            return False
         if 'profile' in kwargs:
             profile = kwargs['profile']
         else:
-            profile = aws_default_profile
+            return False
 
         if 'table_name' not in kwargs:
-            print("Table name not defined!")
-            return
+            return False
         
         self.table_name = kwargs['table_name']
 
@@ -58,7 +56,6 @@ class DynamodbSimple(object):
                         throughput
         """
         if 'partition_key' not in kwargs:
-            print("No Partition Key Defined!")
             return False
         
         partition_key = kwargs['partition_key']
@@ -70,8 +67,6 @@ class DynamodbSimple(object):
             throughput = kwargs['throughput']
         else:
             throughput = '5'
-        
-        print ("Creating Table...")
         
         throughput = int(throughput)
         
@@ -124,9 +119,7 @@ class DynamodbSimple(object):
                 TableName=self.table_name,
             )
         
-        print ("Waiting for table creation...")
         new_table.wait_until_exists()
-        print ("Table Created!")  
         return
 
     def delete_table(self):
@@ -193,7 +186,6 @@ class DynamodbSimple(object):
         :param: kwargs: item: item to be inserted
         """
         if 'item' not in kwargs:
-            print("No item to insert!")
             return False
 
         item = kwargs['item']
@@ -207,7 +199,6 @@ class DynamodbSimple(object):
         """
 
         if 'key' not in kwargs or 'value' not in kwargs:
-            print("Key and/or value not defined!")
             return False
 
         self.table.delete_item(
@@ -223,10 +214,8 @@ class DynamodbSimple(object):
         This updates a particular item in a dynamo table, adding a new key value pair.
         """
         if 'key' not in kwargs or 'value' not in kwargs:
-            print ("Key and/or Value not defined!")
             return False
         if 'id_key' not in kwargs or 'id_value' not in kwargs:
-            print("The new values are not defined!")
             return False
 
         self.table.update_item(
@@ -252,7 +241,6 @@ class DynamodbSimple(object):
         :params: kwargs: [items]: items to write
         """
         if 'items' not in kwargs:
-            print("Nothing to insert!")
             return False
 
         with self.table.batch_writer() as batch:
