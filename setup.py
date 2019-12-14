@@ -9,7 +9,7 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE/"README.md").read_text()
 
 setup(
-    name='simpleaws',
+    name='simple_AWS',
     python_requires='>=3.3',
     version='0.1.2',
     description='Simplified AWS Functions',
@@ -17,8 +17,9 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/maxpearl/simpleAWS",
     author="Max Pearl",
+    author_email="code@maxwellpearl.com",
     license="GPLv3",
-    packages=['simpleaws'],
+    packages=['simple_AWS'],
     include_package_data=True,
     install_requires=[
         'botocore',
