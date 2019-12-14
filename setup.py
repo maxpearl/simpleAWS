@@ -11,7 +11,7 @@ README = (HERE/"README.md").read_text()
 setup(
     name='simpleaws',
     python_requires='>=3.3',
-    version='0.1',
+    version='0.1.2',
     description='Simplified AWS Functions',
     long_description=README,
     long_description_content_type="text/markdown",
@@ -21,6 +21,7 @@ setup(
     packages=['simpleaws'],
     include_package_data=True,
     install_requires=[
+        'botocore',
         'boto3',
     ],
     classifiers=[
