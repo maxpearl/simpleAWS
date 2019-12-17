@@ -3,7 +3,7 @@ Simple_aws
 
 SQS Functions
 
-version .1
+version 0.1.3
 """
 import boto3
 
@@ -14,22 +14,32 @@ class sqsSimple(object):
         """
         if 'region_name' in kwargs:
             region_name = kwargs['region_name']
-        else: 
-            region_name = aws_default_region
+
         if 'profile' in kwargs:
             profile = kwargs['profile']
-        else:
-            profile = aws_default_profile
 
         session = boto3.session.Session(profile_name=profile,
                                     region_name=region_name)     
         self.sqs = session.resource('sqs')
-        if 'queue' not in kwargs:
-            self.queue_name = sqs_default_queue
-        else:
+
+        if 'queue' in kwargs:
             self.queue_name = kwargs['queue']
 
         return
+
+    def queue_exists(self):
+        """
+        Does the queue exist?
+        """
+        if hasattr(self,'queue_name'):
+            try:
+                queue = self.sqs.get_queue_by_name(QueueName=self.queue_name)
+            except:
+                return False
+        else:
+            return False
+
+        return queue
 
     def get_sqs_messages(self, **kwargs):
         """
@@ -39,7 +49,7 @@ class sqsSimple(object):
         if 'num_messages' in kwargs:
             num_messages = kwargs['num_messages']
         else:
-            num_messages = sqs_default_messages
+            num_messages = 100
             
         messages = queue.receive_messages(MaxNumberOfMessages=num_messages)
         all_messages = []

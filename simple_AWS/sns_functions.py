@@ -3,7 +3,7 @@ Simple_aws
 
 SNS Functions 
 
-version 0.1
+version 0.1.3
 """
 import boto3
 
@@ -15,12 +15,9 @@ class snsSimple(object):
         """
         if 'region_name' in kwargs:
             region_name = kwargs['region_name']
-        else: 
-            region_name = aws_default_region
+
         if 'profile' in kwargs:
             profile = kwargs['profile']
-        else:
-            profile = aws_default_profile
 
         session = boto3.session.Session(profile_name=profile,
                                     region_name=region_name)
@@ -34,22 +31,26 @@ class snsSimple(object):
         
         """
         if 'arn' not in kwargs:
-            arn = sns_default_arn
+            return False
         else:
             arn = kwargs['arn']
         if 'subject' not in kwargs:
-            subject = sns_default_subject
+            subject = "No Subject"
         else:
             subject = kwargs['subject']
         
         if 'message' not in kwargs:
-            message = sns_default_message
+            message = "No Message"
         else:
             message = kwargs['message']
-        topic  = self.sns.Topic(arn)
-        result = topic.publish(
-                TopicArn=arn,
-                Subject=subject,
-                Message=message
-            )
-        return
+
+        try:
+            topic  = self.sns.Topic(arn)
+            result = topic.publish(
+                    TopicArn=arn,
+                    Subject=subject,
+                    Message=message
+                )
+            return True
+        except:
+            return False

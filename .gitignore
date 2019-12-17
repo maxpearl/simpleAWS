@@ -9,9 +9,6 @@ __pycache__
 # Python egg metadata
 /*.egg-info
 
-# Test file
-simple_aws_tests.py
-
 # Pipfiles
 Pipfile
 Pipfile.lock
