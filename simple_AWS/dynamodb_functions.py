@@ -1,8 +1,6 @@
 """
 Dynamodb functions library
 
-version .1
-
 Super simplified AWS functions.
 """
 import boto3
@@ -19,21 +17,16 @@ class DynamodbSimple(object):
         """
         if 'region_name' in kwargs:
             region_name = kwargs['region_name']
-        else: 
-            return False
+
         if 'profile' in kwargs:
             profile = kwargs['profile']
-        else:
-            return False
-
-        if 'table_name' not in kwargs:
-            return False
         
-        self.table_name = kwargs['table_name']
-
         session = boto3.session.Session(profile_name=profile, region_name=region_name)
         self.dynamodb = session.resource('dynamodb')
-        self.table = self.dynamodb.Table(kwargs['table_name'])
+
+        if 'table_name' in kwargs:
+            self.table_name = kwargs['table_name']
+            self.table = self.dynamodb.Table(kwargs['table_name'])
 
         return
 
@@ -47,6 +40,19 @@ class DynamodbSimple(object):
             return True
         except:
             return False
+
+    def list_tables(self):
+
+        table_iterator = self.dynamodb.tables.all()
+
+        dynamodb_tables = []
+        for table in table_iterator:
+            try:
+                for table in table_iterator:
+                    dynamodb_tables.append(table.name)
+                return dynamodb_tables
+            except:
+                return False
 
     def create_table(self, **kwargs):
         """

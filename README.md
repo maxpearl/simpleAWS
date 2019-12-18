@@ -1,6 +1,6 @@
 # SimpleAWS
 
-Version 0.1.3
+Version 0.1.4
 
 Simplified Libraries for some of the most common AWS resources. The purpose of SimpleAWS is to add one layer of abstraction, and remove a lot of the guess-work from interfacing with some AWS resources.
 
@@ -9,9 +9,11 @@ The options are limited on purpose - this is *not* designed to replace boto3, bu
 ## AWS Requirements
 
 SimpleAWS uses profiles and secret/access keys. Put a file called 'credentials' inside the .aws directory in your home directory (the home of the user running this code.) The format of the file is:
+```
 [profilename]
 aws_access_key_id = <key>
 aws_secret_access_key = <key>
+```
 
 ## Installation
 
@@ -20,10 +22,10 @@ aws_secret_access_key = <key>
 ## Usage
 
 ```
-from dynamodb_functions import *
-from s3_functions import *
-from sns_functions import *
-from sqs_functions import *
+from simple_AWS.dynamodb_functions import *
+from simple_AWS.s3_functions import *
+from simple_AWS.sns_functions import *
+from simple_AWS.sqs_functions import *
 ```
 
 ### S3
@@ -94,12 +96,6 @@ s3simple = S3Simple(region_name='region', profile='profile', bucket_name='bucket
 s3simple.delete_s3_file(file_name=key)
 ```
 
-*Delete Bucket*
-```
-s3simple = S3Simple(region_name='region', profile='profile', bucket_name='bucket-name')
-s3simple.s3_delete_bucket()
-```
-
 ### DynamoDB
 
 *Checking to see if a table exists*
@@ -111,7 +107,14 @@ if dbsimple.check_table(): # returns True/False
 
 ```
 
-*Creating Table*
+*List all Tables*
+```
+dbsimple = DynamodbSimple(table_name=test_new_table, region_name=test_region, profile=test_profile)
+table_list = dbsimple.list_tables()
+# returns a list
+```
+
+*Creating a Table*
 ```
 dbsimple = DynamodbSimple(region_name='region', profile='profile', table_name='table_name')
 dbsimple.create_table(
@@ -120,6 +123,13 @@ dbsimple.create_table(
     throughput='5'
 )
 ```
+
+*Delete a table*
+```
+dbsimple = DynamodbSimple(region_name='region', profile='profile', table_name='table_name')
+dbsimple.delete_table()
+```
+
 
 *Writing data in bulk*
 ```
@@ -180,12 +190,6 @@ dbsimple.update_item(
 )
 ```
 
-*Delete DynamoDB table*
-```
-dbsimple = DynamodbSimple(region_name='region', profile='profile', table_name='table_name')
-dbsimple.delete_table()
-```
-
 ### SQS
 
 *Does a Queue Exist?*
@@ -194,10 +198,23 @@ sqs_simple = sqsSimple(region_name='region', profile='profile', queue_name='queu
 sqs_simple.queue_exists()
 ```
 
+*List Queues*
+```
+sqs_simple = sqsSimple(region_name='region', profile='profile')
+list = sqs_simple.list_queues()
+# returns a list
+```
+
 *Create Queue*
 ```
 sqs_simple = sqsSimple(region_name='region', profile='profile') 
 sqs_simple.create_queue(queue='queue_name')
+```
+
+*Delete Queue*
+```
+sqs_simple = sqsSimple(region_name='region', profile='profile', queue='queue_name')
+sqs_simple.delete_queue()
 ```
 
 *Send Message*
@@ -219,13 +236,21 @@ sqs_simple = sqsSimple(region_name='region', profile='profile', queue='queue_nam
 sqs_simple.purge_queue()
 ```
 
-*Delete Queue*
+### SNS
+
+*List Topics*
 ```
-sqs_simple = sqsSimple(region_name='region', profile='profile', queue='queue_name')
-sqs_simple.delete_queue()
+sns_simple = snsSimple(region_name='region', profile='profile')
+topics = sns_simple.list_topics()
+# Returns a list
 ```
 
-### SNS
+*List Subscriptions*
+```
+sns_simple = snsSimple(region_name='region', profile='profile')
+subscriptions = sns_simple.list_subscriptions()
+# Returns a list
+```
 
 *Send Message*
 ```

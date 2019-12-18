@@ -1,8 +1,6 @@
 """
 Simple_aws S3 Functions
 
-version .1
-
 """
 import boto3
 import io
@@ -52,10 +50,12 @@ class S3Simple(object):
         object_summary_iterator = self.bucket.objects.all()
 
         s3_list = []
-        for s3_object in object_summary_iterator:
-            s3_list.append(s3_object.key)
-
-        return s3_list
+        try:
+            for s3_object in object_summary_iterator:
+                s3_list.append(s3_object.key)
+            return s3_list
+        except:
+            return False
 
     def s3_bucket_filter(self, **kwargs):
         """

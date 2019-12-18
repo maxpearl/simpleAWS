@@ -3,7 +3,6 @@ Simple_aws
 
 SQS Functions
 
-version 0.1.3
 """
 import boto3
 
@@ -40,6 +39,17 @@ class sqsSimple(object):
             return False
 
         return queue
+
+    def list_queues(self):
+        """
+        List queues
+        """
+        queues = []
+        queue_iterator = self.sqs.queues.all()
+        for queue in queue_iterator:
+            queues.append(queue.url)
+
+        return queues
 
     def get_sqs_messages(self, **kwargs):
         """
@@ -78,6 +88,7 @@ class sqsSimple(object):
         Create new SQS Queue
         """
         new_queue = self.sqs.create_queue(QueueName=self.queue_name)
+        print(new_queue)
 
         return
         
