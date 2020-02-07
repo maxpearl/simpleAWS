@@ -1,5 +1,8 @@
 # SimpleAWS
 
+[![Join the chat at https://gitter.im/simple-AWS/community](https://badges.gitter.im/simple-AWS/community.svg)](https://gitter.im/simple-AWS/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
 Version 0.1.4
 
 Simplified Libraries for some of the most common AWS resources. The purpose of SimpleAWS is to add one layer of abstraction, and remove a lot of the guess-work from interfacing with some AWS resources.
