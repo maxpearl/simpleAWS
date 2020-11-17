@@ -13,13 +13,9 @@ class S3Simple(object):
         """
         if 'region_name' in kwargs:
             self.region_name = kwargs['region_name']
-        else:
-            return False
-            
+
         if 'profile' in kwargs:
             profile = kwargs['profile']
-        else:
-            return False
 
         session = boto3.session.Session(profile_name=profile,
                                     region_name=self.region_name)
@@ -151,9 +147,13 @@ class S3Simple(object):
         if 'local_file' not in kwargs or 's3_file' not in kwargs:
             return False
 
+        extra_args = None
+        if 'public' in kwargs:
+            if kwargs['public']:
+                extra_args = {'ACL': 'public-read'}
         # upload to s3
         self.s3.Bucket(self.bucket_name).upload_file(
-            kwargs['local_file'], kwargs['s3_file'],
+            kwargs['local_file'], kwargs['s3_file'], ExtraArgs=extra_args
             )
         
         return True

@@ -1,3 +1,5 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ![pypi](https://img.shields.io/pypi/v/simple-AWS.svg) [![https://gitter.im/simple-AWS/community](https://badges.gitter.im/simple-AWS/community.svg)](https://gitter.im/simple-AWS/simple-AWS)
+
 # SimpleAWS
 
 Version 0.1.4
