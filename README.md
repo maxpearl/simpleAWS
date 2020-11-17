@@ -2,7 +2,7 @@
 
 # SimpleAWS
 
-Version 0.1.4
+Version 0.1.5
 
 Simplified Libraries for some of the most common AWS resources. The purpose of SimpleAWS is to add one layer of abstraction, and remove a lot of the guess-work from interfacing with some AWS resources.
 

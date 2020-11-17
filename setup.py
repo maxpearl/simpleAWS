@@ -11,7 +11,7 @@ README = (HERE/"README.md").read_text()
 setup(
     name='simple_AWS',
     python_requires='>=3.3',
-    version='0.1.4',
+    version='0.1.5',
     description='Simplified AWS Functions',
     long_description=README,
     long_description_content_type="text/markdown",
