@@ -24,11 +24,18 @@ aws_secret_access_key = <key>
 ## Usage
 
 ```
+from simple_AWS.aws_functions import *
 from simple_AWS.dynamodb_functions import *
 from simple_AWS.s3_functions import *
 from simple_AWS.sns_functions import *
 from simple_AWS.sqs_functions import *
 ```
+
+### Overall
+
+*Get Regions for a service*
+
+`regions = aws.list_regions(service=service)`
 
 ### S3
 
@@ -203,7 +210,7 @@ sqs_simple.queue_exists()
 *List Queues*
 ```
 sqs_simple = sqsSimple(region_name='region', profile='profile')
-list = sqs_simple.list_queues()
+sqs_list = sqs_simple.list_queues()
 # returns a list
 ```
 
@@ -260,4 +267,16 @@ sns_simple = snsSimple(region_name='region', profile='profile')
 sns_simple.send_notification(arn='AWS Topic ARN', subject='subject', message='message')
 ```
 
+### EC2
 
+*List Instances*
+
+```
+ec2 = ec2Simple(region_name=region, profile=test_profile)
+instances = ec2.list_instances()
+# Returns instance iterator
+```
+
+### Tests and Inventories
+
+There is under /tests simple_aws_tests_sample.py, with example code to test each of the services. There is also file under /tests, simple_aws_inventory_sample.py, which allows you to run an inventory of all resources under the following services: EC2 instances, S3 buckets, DynamoDB tables, SNS Topics and subscriptions, and SQS Queues under all regions.

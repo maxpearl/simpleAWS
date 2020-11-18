@@ -23,7 +23,5 @@ class ec2Simple(object):
 
     def list_instances(self):
         instance_iterator = self.ec2.instances.all()
-        for instance in instance_iterator:
-            print(instance)
 
-        return
+        return instance_iterator
