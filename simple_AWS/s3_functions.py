@@ -57,7 +57,7 @@ class S3Simple(object):
         """
         List contents of bucket with a filter
         """
-        if 'max-keys' in kwargs.keys():
+        if 'max_keys' in kwargs.keys():
             max_keys = kwargs['max_keys']
         else:
             max_keys = 1000 #S3 API default
