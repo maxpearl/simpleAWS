@@ -8,5 +8,5 @@ I would love to have contributions to Simple-AWS. Whether it be bug fixes, test 
 
 ### Local Testing
 
-In /tests/ is a python script, simple_aws_tests_sample.py. It is an example of some tests you can run.
+In /cli/ is a python script, simple_aws_tests_sample.py. It is an example of some tests you can run.
 

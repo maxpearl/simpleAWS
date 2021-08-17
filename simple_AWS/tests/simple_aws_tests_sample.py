@@ -305,7 +305,7 @@ def sns_tests():
     test_profile = "default"
     test_arn = "arn:aws:sns:us-east-1:650307174203:test-topic"
     test_subject = "Testing Simple AWS"
-    test_message = "You go, boy!"
+    test_message = "You go, girl!"
 
     # List Topics
     snssimple = snsSimple(region_name=test_region, profile=test_profile)
@@ -320,7 +320,7 @@ def sns_tests():
     print(f"Subscriptions: {subs}")
 
     # Sending message
-    print("Sending message... check your inbox, dude.")
+    print("Sending message... check your inbox.")
     snssimple = snsSimple(region_name=test_region, profile=test_profile)
     result = snssimple.send_notification(arn=test_arn, subject=test_subject, message=test_message)
 

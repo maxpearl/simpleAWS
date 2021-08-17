@@ -99,6 +99,12 @@ s3simple = S3Simple(region_name='region', profile='profile', bucket_name='bucket
 s3simple.send_file_to_s3(local_file='/path/file_name.ext', s3_file='file_name.ext')
 ```
 
+To make that file publically available (not recommended!):
+```
+s3simple = S3Simple(region_name='region', profile='profile', bucket_name='bucket-name')
+s3simple.send_file_to_s3(local_file='/path/file_name.ext', s3_file='file_name.ext', public=True)
+```
+
 *Delete File*
 ```
 s3simple = S3Simple(region_name='region', profile='profile', bucket_name='bucket-name')
