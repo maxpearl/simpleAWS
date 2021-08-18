@@ -153,69 +153,82 @@ def s3_tests():
     test_local_file = '/tmp/aliens.jpg'
     test_file_name = 'aliens.jpg'
 
-    # List Buckets
-    s3simple = S3Simple(region_name=test_region, profile=test_profile)
-    bucket_list = s3simple.list_buckets()
-    print(f"Buckets: {bucket_list}")
+   # List Buckets
+    if (function == 'list') or (function == 'all'):
+        s3simple = S3Simple(region_name=test_region, profile=test_profile)
+        bucket_list = s3simple.list_buckets()
+        print(f"Buckets: {bucket_list}")
 
     # Bucket Contents
+    if (function == 'contents') or (function == 'all'):
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        file_list = s3simple.s3_bucket_contents()
 
-    s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
-    file_list = s3simple.s3_bucket_contents()
-
-    print(f"Contents of test bucket: {file_list}")
+        print(f"Contents of test bucket: {file_list}")
 
     # Filtered List
-    s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
-    filtered_list = s3simple.s3_bucket_filter(prefix='Decorating the Sky.jpg')
+    if (function == 'filtered') or (function == 'all'):
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        filtered_list = s3simple.s3_bucket_filter(prefix='Decorating the Sky.jpg')
 
-    print(f"Filtered contents of test bucket: {filtered_list}")
+        print(f"Filtered contents of test bucket: {filtered_list}")
 
     # Download a file
-    s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
-    s3simple.download_file(file_name='Decorating the Sky.jpg', output_file='/tmp/Decorating the Sky.jpg')
+    if (function == 'download') or (function == 'all'):
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        s3simple.download_file(file_name='Decorating the Sky.jpg', output_file='/tmp/Decorating the Sky.jpg')
 
-    if os.path.exists('/tmp/Decorating the Sky.jpg'):
-        print("File Downloaded Properly!")
-    else:
-        print("File not downloaded!")
+        if os.path.exists('/tmp/Decorating the Sky.jpg'):
+            print("File Downloaded Properly!")
+        else:
+            print("File not downloaded!")
     
     # create a bucket
-    s3simple = S3Simple(bucket_name=test_new_bucket, region_name=test_region, profile=test_profile)
-    new_bucket = s3simple.s3_new_bucket()
+    if (function == 'new') or (function == 'all'):
+        s3simple = S3Simple(bucket_name=test_new_bucket, region_name=test_region, profile=test_profile)
+        if not s3simple:
+            print("Problem with profile!!")
+            return
 
-    new_bucket_list = s3simple.list_buckets()
-    print(f"New Bucket List: {new_bucket_list}")
+        new_bucket = s3simple.s3_new_bucket()
+
+        print(f"New Bucket: {new_bucket}")
+        new_bucket_list = s3simple.list_buckets()
+        print(f"New Bucket List: {new_bucket_list}")
 
     # delete a bucket
-    s3simple = S3Simple(bucket_name=test_new_bucket, region_name=test_region, profile=test_profile)
-    s3simple.s3_delete_bucket()
+    if (function == 'remove') or (function == 'all'):
+        s3simple = S3Simple(bucket_name=test_new_bucket, region_name=test_region, profile=test_profile)
+        s3simple.s3_delete_bucket()
 
-    new_bucket_list = s3simple.list_buckets()
-    print(f"New Bucket List: {new_bucket_list}")
+        new_bucket_list = s3simple.list_buckets()
+        print(f"New Bucket List: {new_bucket_list}")
 
     # Send text to bucket
-    print("Sending text to S3...")
-    s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
-    key = 'test_item.txt'
-    s3simple.put_to_s3(key=key, body=test_text)
+    if (function == 'text') or (function == 'all'):
+        print("Sending text to S3...")
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        key = 'test_item.txt'
+        s3simple.put_to_s3(key=key, body=test_text)
 
     # Send file to S3
-    print("Sending file to S3...")
-    s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
-    s3simple.send_file_to_s3(local_file=test_local_file, s3_file=test_file_name, public=True)
+    if (function == 'file') or (function == 'all'):
+        print("Sending file to S3...")
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        s3simple.send_file_to_s3(local_file=test_local_file, s3_file=test_file_name, public=True)
 
     # Delete file
-    # First send file
-    print("Sending text for file for deletion...")
-    s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
-    d_key = 'test_item_to_delete.txt'
-    s3simple.put_to_s3(key=key, body=test_text)
+    if (function == 'delete') or (function == 'all'):
+        # First send file
+        print("Sending text for file for deletion...")
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        d_key = 'test_item_to_delete.txt'
+        s3simple.put_to_s3(key=key, body=test_text)
 
-    # then delete it
-    print("Deleting file")
-    s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
-    s3simple.delete_s3_file(file_name=d_key)
+        # then delete it
+        print("Deleting file")
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        s3simple.delete_s3_file(file_name=d_key)
 
     return
 
@@ -356,7 +369,8 @@ if __name__ == '__main__':
         if service == 'dyn':
             dynodb_tests()
         elif service == 's3':
-            s3_tests()
+            func = input("Which function to test (list, contents, filtered, download, new, remove, text, file, delete, all)?")
+            s3_tests(func)
         elif service == 'sqs':
             sqs_tests()
         elif service == 'sns':
