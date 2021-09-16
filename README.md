@@ -285,4 +285,4 @@ instances = ec2.list_instances()
 
 ### Tests and Inventories
 
-There is under /tests simple_aws_tests_sample.py, with example code to test each of the services. There is also file under /tests, simple_aws_inventory_sample.py, which allows you to run an inventory of all resources under the following services: EC2 instances, S3 buckets, DynamoDB tables, SNS Topics and subscriptions, and SQS Queues under all regions.
+There is under /tests simple_aws_tests_sample.py, with example code to test each of the services. There is also file under /cli, simple_aws_inventory_sample.py, which allows you to run an inventory of all resources under the following services: EC2 instances, S3 buckets, DynamoDB tables, SNS Topics and subscriptions, and SQS Queues under all regions.
