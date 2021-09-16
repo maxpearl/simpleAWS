@@ -17,7 +17,7 @@ class S3Simple(object):
         if 'profile' in kwargs:
             profile = kwargs['profile']
 
-        session = boto3.session.Session(profile_name=profile,
+        self.session = boto3.session.Session(profile_name=profile,
                                     region_name=self.region_name)
         self.s3 = session.resource('s3')
 
@@ -157,3 +157,16 @@ class S3Simple(object):
             )
         
         return True
+
+    def get_bucket_acl(self, **kwargs):
+        """
+        Gets important data from a bucket
+        """
+        if 'bucket_name' not in kwargs:
+            return False
+
+        bucket_acl = self.session.client.get_bucket_acl(Bucket=kwargs['bucket_name'])
+
+        return bucket_acl
+
+        
