@@ -42,3 +42,57 @@ class Cloudfront_Simple(object):
                 marker = distribution_list['DistributionList']['NextMarker']
 
         return distributions
+
+    def cf_details(self, **kwargs):
+        """
+        Returns details based on ID, domain, alias or origin
+        :param kwarg id
+        :param kwarg domain
+        :param kwarg alias
+        :param kwarg origin
+        :returns dict with details
+        """
+
+        if 'id' in kwargs and kwargs['id']:
+            cf_id = kwargs['id']
+            domain = False
+            alias = False
+            origin = False
+        elif 'domain' in kwargs and kwargs['domain']:
+            domain = kwargs['domain']
+            cf_id = False
+            alias = False
+            origin = False
+        elif 'alias' in kwargs and kwargs['alias']:
+            alias = kwargs['alias']
+            cf_id = False
+            domain = False
+            origin = False
+        elif 'origin' in kwargs and kwargs['origin']:
+            origin = kwargs['origin']
+            domain = False
+            alias = False
+            cf_id = False
+        else:
+            return False
+
+        # First, get distribution list
+
+        details = []
+        distributions = self.cf_list()
+        for dist in distributions:
+            if dist['Id'] == cf_id:
+                return [dist]
+            elif dist['DomainName'] == domain:
+                return [dist]
+            elif origin:
+                for cf_origin in dist['Origins']['Items']:
+                    if cf_origin['DomainName'] == origin:
+                        details.append(dist)
+            else: # assumption is alias is left
+                for cf_alias in dist['Aliases']['Items']:
+                    if cf_alias == alias:
+                        details.append(dist)
+
+        return details
+            

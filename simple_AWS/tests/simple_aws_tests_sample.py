@@ -10,6 +10,7 @@ from sns_functions import *
 from sqs_functions import *
 from ec2_functions import *
 from aws_functions import *
+from cloudfront_functions import *
 
 def dynodb_tests():
     # DynamoDB Tests
@@ -339,33 +340,54 @@ def sns_tests():
 
     return
 
-def inventory():
+def cf_tests():
+
     test_region = "us-east-1"
     test_profile = "default"
-    
-    service_list = [
-        'ec2',
-        'dynamodb',
-        's3',
-        'sns',
-        'sqs'
-    ]
 
-    aws = awsSimple(region_name=test_region, profile=test_profile)
-    # Regions
-    for service in service_list:
-        print(f"Service: {service}")
-        regions = aws.list_regions(service=service)
-        for region in regions:
-            if service == 'ec2':
-                ec2 = ec2Simple(profile=test_profile, region_name=region)
-                ec2.list_instances()
+    cfsimple = Cloudfront_Simple(region_name=test_region, profile=test_profile)
+    dists = cfsimple.cf_list()
+    import random
+    pick1 = random.randrange(0,len(dists))
+    pick2 = random.randrange(0,len(dists))
+    pick3 = random.randrange(0,len(dists))
+    pick4 = random.randrange(0,len(dists))
+
+    print(f"List of distributions in {test_region} for profile {test_profile}")
+    i = 0
+    for dist in dists:
+        print(f"URL: {dist['DomainName']}")
+        for alias in dist['Aliases']['Items']:
+            print(f"Alias: {alias}")
+            if i == pick1:
+                cf_id = dist['Id']
+            if i == pick2:
+                domain = dist['DomainName']
+            if i == pick3:
+                alias = dist['Aliases']['Items'][0]
+            if i == pick4:
+                origin = dist['Origins']['Items'][0]['DomainName']
+            i += 1
+
+    print("________________________________________________________")
+    details1 = cfsimple.cf_details(id=cf_id)
+    print(f"Details for random distribution by ID {cf_id}: {details1}")
+    print("________________________________________________________")
+    details2 = cfsimple.cf_details(domain=domain)
+    print(f"Details for random distribution by Domain {domain}: {details2}")
+    print("________________________________________________________")
+    details3 = cfsimple.cf_details(alias=alias)
+    print(f"Details for random distribution by Alias {alias}: {details3}")
+    print("________________________________________________________")
+    details4 = cfsimple.cf_details(origin=origin)
+    print(f"Details for random distribution by Origin {origin}: {details4}")
+
     return
 
-    
+
 if __name__ == '__main__':
     while True:
-        service = input("Which service to test (dyn, s3, sqs, sns, inv, Quit)?")
+        service = input("Which service to test (dyn, s3, sqs, sns, cf, anything else to quit)?")
         if service == 'dyn':
             dynodb_tests()
         elif service == 's3':
@@ -375,8 +397,8 @@ if __name__ == '__main__':
             sqs_tests()
         elif service == 'sns':
             sns_tests()
-        elif service == 'inv': # inventory
-            inventory()
+        elif service == 'cf':
+            cf_tests()
         else:
             exit()
             
