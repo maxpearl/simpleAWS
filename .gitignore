@@ -17,4 +17,5 @@ Pipfile.lock
 .vscode
 simple_aws_tests.py
 simple_aws_inventory.py
+simple_aws_inventory_dev.py
 test.csv

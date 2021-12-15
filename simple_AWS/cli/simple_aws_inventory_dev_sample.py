@@ -1,10 +1,12 @@
-from simple_AWS.aws_functions import *
-from simple_AWS.dynamodb_functions import *
-from simple_AWS.s3_functions import *
-from simple_AWS.sns_functions import *
-from simple_AWS.sqs_functions import *
-from simple_AWS.ec2_functions import *
-
+import sys
+sys.path.insert(0, '..')
+from dynamodb_functions import *
+from s3_functions import *
+from sns_functions import *
+from sqs_functions import *
+from ec2_functions import *
+from aws_functions import *
+from cloudfront_functions import *
 
 def inventory(service):
     test_region = "us-east-1"
