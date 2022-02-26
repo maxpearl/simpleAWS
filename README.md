@@ -273,6 +273,32 @@ sns_simple = snsSimple(region_name='region', profile='profile')
 sns_simple.send_notification(arn='AWS Topic ARN', subject='subject', message='message')
 ```
 
+### CloudFront
+
+*List Distributions*
+```
+cfsimple = Cloudfront_Simple(region_name=test_region, profile=test_profile)
+dists = cfsimple.cf_list()
+```
+
+*Get Details of a Distribution*
+```
+cfsimple = Cloudfront_Simple(region_name=test_region, profile=test_profile)
+details = cfsimple.cf_details(id=cf_id)
+
+or
+
+details = cfsimple.cf_details(domain=domain)
+    
+or
+
+details3 = cfsimple.cf_details(alias=alias)
+
+or
+
+details4 = cfsimple.cf_details(origin=origin)
+```
+
 ### EC2
 
 *List Instances*

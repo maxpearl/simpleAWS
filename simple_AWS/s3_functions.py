@@ -19,11 +19,13 @@ class S3Simple(object):
 
         self.session = boto3.session.Session(profile_name=profile,
                                     region_name=self.region_name)
-        self.s3 = session.resource('s3')
+        self.s3 = self.session.resource('s3')
 
         if 'bucket_name' in kwargs:
             self.bucket_name = kwargs['bucket_name']
             self.bucket = self.s3.Bucket(kwargs['bucket_name'])
+        else:
+            self.bucket_name = False
 
         return
 
@@ -158,15 +160,31 @@ class S3Simple(object):
         
         return True
 
-    def get_bucket_acl(self, **kwargs):
+    def get_bucket_acl(self):
         """
-        Gets important data from a bucket
+        Gets acl data from a bucket
         """
-        if 'bucket_name' not in kwargs:
+        if not self.bucket_name:
             return False
 
-        bucket_acl = self.session.client.get_bucket_acl(Bucket=kwargs['bucket_name'])
+        bucket_acl = self.bucket.Acl()
+        grants = bucket_acl.grants
 
-        return bucket_acl
+        return grants
 
-        
+    def get_bucket_cors(self):
+        """
+        Gets CORS info from a bucket
+        """
+        if not self.bucket_name:
+            return False
+
+        try:
+            bucket_cors = self.bucket.Cors()
+            rules = bucket_cors.cors_rules
+        except:
+            rules = "No CORS set for this bucket."
+
+        return rules
+    
+

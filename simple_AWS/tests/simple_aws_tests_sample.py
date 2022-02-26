@@ -231,6 +231,15 @@ def s3_tests():
         s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
         s3simple.delete_s3_file(file_name=d_key)
 
+     # Get Bucket info
+    if (function == 'info') or (function == 'all'):
+        print("Getting bucket info...")
+        s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
+        acl = s3simple.get_bucket_acl()
+        print(f"ACL:{acl}")
+        cors = s3simple.get_bucket_cors()
+        print(f"CORS:{cors}")
+
     return
 
 def sqs_tests():
