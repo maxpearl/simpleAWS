@@ -29,6 +29,7 @@ from simple_AWS.dynamodb_functions import *
 from simple_AWS.s3_functions import *
 from simple_AWS.sns_functions import *
 from simple_AWS.sqs_functions import *
+from simple_AWS.cloudfront_functions import *
 ```
 
 ### Overall
@@ -317,10 +318,17 @@ instances = ec2.list_instances()
 
 ### Tests
 
-There is under /tests simple_aws_tests_sample.py, with example code to test each of the services. 
+- simple_aws_tests_sample.py: with example code to test each of the services. 
 
 ### CLI
 
-Under /cli there are two files: simple_aws_inventory_sample.py, which allows you to run an inventory of all resources under the following services: EC2 instances, S3 buckets, DynamoDB tables, SNS Topics and subscriptions, and SQS Queues under all regions. The other is simple_aws_cf_invalidation.py, **which requires the python library 'click'**, and can create an invalidation by domain name.
+- simple_aws_inventory_sample.py: Inventory:
+  - EC2 instances
+  - S3 buckets
+  - DynamoDB tables
+  - SNS Topics and subscriptions
+  - SQS Queues under all regions
+  - Cloudfront Distributions
+- simple_aws_cf_invalidation.py:  **this requires the python library 'click'** - will create an invalidation by domain name and path.
 
 
