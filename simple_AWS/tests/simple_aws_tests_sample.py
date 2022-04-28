@@ -137,7 +137,7 @@ def dynodb_tests():
 
     return
 
-def s3_tests():
+def s3_tests(function):
     # s3 tests
 
     test_bucket = "simple-aws-test"
@@ -231,7 +231,7 @@ def s3_tests():
         s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
         s3simple.delete_s3_file(file_name=d_key)
 
-     # Get Bucket info
+    # Get Bucket info
     if (function == 'info') or (function == 'all'):
         print("Getting bucket info...")
         s3simple = S3Simple(bucket_name=test_bucket, region_name=test_region, profile=test_profile)
@@ -361,6 +361,7 @@ def cf_tests():
     pick2 = random.randrange(0,len(dists))
     pick3 = random.randrange(0,len(dists))
     pick4 = random.randrange(0,len(dists))
+    pick5 = random.randrange(0,len(dists))
 
     print(f"List of distributions in {test_region} for profile {test_profile}")
     i = 0
@@ -376,6 +377,9 @@ def cf_tests():
                 alias = dist['Aliases']['Items'][0]
             if i == pick4:
                 origin = dist['Origins']['Items'][0]['DomainName']
+            if i == pick5:
+                inval_id = dist['Id']
+                inval_alias = dist['Aliases']['Items'][0]
             i += 1
 
     print("________________________________________________________")
@@ -391,6 +395,10 @@ def cf_tests():
     details4 = cfsimple.cf_details(origin=origin)
     print(f"Details for random distribution by Origin {origin}: {details4}")
 
+    print(f"Testing a random invalidation of the path '/*' for {inval_alias}")
+    response = cfsimple.cf_invalidate(inval_id, '/*')
+    print(f"Response {response}")
+
     return
 
 
@@ -400,7 +408,7 @@ if __name__ == '__main__':
         if service == 'dyn':
             dynodb_tests()
         elif service == 's3':
-            func = input("Which function to test (list, contents, filtered, download, new, remove, text, file, delete, all)?")
+            func = input("Which function to test (list, contents, filtered, download, new, remove, text, file, delete, info, all)?")
             s3_tests(func)
         elif service == 'sqs':
             sqs_tests()

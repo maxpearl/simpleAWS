@@ -3,6 +3,7 @@ Cloudfront functions library
 
 Super simplified AWS functions.
 """
+import time
 import boto3
 
 class Cloudfront_Simple(object):
@@ -95,4 +96,28 @@ class Cloudfront_Simple(object):
                         details.append(dist)
 
         return details
-            
+
+    def cf_invalidate(self, cf_id, path):
+        """
+        Creates an invalidation on a Cloudfront distribution
+        :param self
+        :param cf_id - distribution id
+        :param path - path to invalidate
+        """
+        now = str(time.time())
+
+        response = self.cf_client.create_invalidation(
+            DistributionId=cf_id,
+            InvalidationBatch = {
+                'Paths': {
+                    'Quantity': 1,
+                    'Items': [
+                        path,
+                    ]
+                },
+                'CallerReference': now
+            }
+        )     
+
+        return response
+    
