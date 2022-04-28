@@ -18,4 +18,5 @@ Pipfile.lock
 simple_aws_tests.py
 simple_aws_inventory.py
 simple_aws_inventory_dev.py
+simple_aws_cf_invalidation_dev.py
 test.csv

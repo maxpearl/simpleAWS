@@ -1,10 +1,9 @@
 """
 Creates invalidation for a cloudfront distribution based on alias
 """
-import sys
-sys.path.insert(0, '..')
+from simple_AWS.aws_functions import *
+from simple_AWS.cloudfront_functions import *
 import click
-from cloudfront_functions import *
 
 @click.command()
 @click.option('--region', type=str, help="AWS Region", default='us-east')

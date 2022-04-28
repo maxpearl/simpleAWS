@@ -4,6 +4,7 @@ from simple_AWS.s3_functions import *
 from simple_AWS.sns_functions import *
 from simple_AWS.sqs_functions import *
 from simple_AWS.ec2_functions import *
+from simple_AWS.cloudfront_functions import *
 
 
 def inventory(service):

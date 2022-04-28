@@ -2,7 +2,7 @@
 
 # SimpleAWS
 
-Version 0.1.5
+Version 0.1.6
 
 Simplified Libraries for some of the most common AWS resources. The purpose of SimpleAWS is to add one layer of abstraction, and remove a lot of the guess-work from interfacing with some AWS resources.
 
@@ -299,6 +299,12 @@ or
 details4 = cfsimple.cf_details(origin=origin)
 ```
 
+*Create an Invalidation*
+```
+ cfsimple = Cloudfront_Simple(region_name=region, profile=profile)
+ response = cfsimple.cf_invalidate(cf_id, path)
+ ```
+
 ### EC2
 
 *List Instances*
@@ -309,6 +315,12 @@ instances = ec2.list_instances()
 # Returns instance iterator
 ```
 
-### Tests and Inventories
+### Tests
 
-There is under /tests simple_aws_tests_sample.py, with example code to test each of the services. There is also file under /cli, simple_aws_inventory_sample.py, which allows you to run an inventory of all resources under the following services: EC2 instances, S3 buckets, DynamoDB tables, SNS Topics and subscriptions, and SQS Queues under all regions.
+There is under /tests simple_aws_tests_sample.py, with example code to test each of the services. 
+
+### CLI
+
+Under /cli there are two files: simple_aws_inventory_sample.py, which allows you to run an inventory of all resources under the following services: EC2 instances, S3 buckets, DynamoDB tables, SNS Topics and subscriptions, and SQS Queues under all regions. The other is simple_aws_cf_invalidation.py, **which requires the python library 'click'**, and can create an invalidation by domain name.
+
+
