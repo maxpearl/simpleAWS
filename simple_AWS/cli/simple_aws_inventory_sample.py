@@ -81,12 +81,19 @@ def inventory(service):
             for alias in dist['Aliases']['Items']:
                 print(f"Alias: {alias}")
 
+    if service == 'glacier' or service == 'all':
+        print("Glacier is global")
+        gsimple = GlacierSimple(region_name=test_region, profile=test_profile)
+        vaults = gsimple.list_vaults()
+
+        print(f"All Glacier Vaults: {vaults}")
+    
     return
 
     
 if __name__ == '__main__':
     while True:
-        service = input("Which service to inventory (ec2, dyn, s3, sqs, sns, cf, all, (q)uit)?")
+        service = input("Which service to inventory (ec2, dyn, s3, glacier, sqs, sns, cf, all, (q)uit)?")
         if service.lower() == 'q':
             exit()
         else:

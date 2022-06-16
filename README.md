@@ -112,6 +112,14 @@ s3simple = S3Simple(region_name='region', profile='profile', bucket_name='bucket
 s3simple.delete_s3_file(file_name=key)
 ```
 
+### Glacier
+
+*List Vaults*
+```
+gsimple = GlacierSimple(region_name='region', profile='profile')
+vaults = gsimple.list_vaults()
+```
+
 ### DynamoDB
 
 *Checking to see if a table exists*

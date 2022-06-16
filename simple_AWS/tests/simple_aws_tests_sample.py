@@ -401,10 +401,20 @@ def cf_tests():
 
     return
 
+def glacier_tests():
+
+    test_region = "us-east-1"
+    test_profile = "default"
+
+    gsimple = GlacierSimple(region_name=test_region, profile=test_profile)
+    vaults = gsimple.list_vaults()
+    print(f"All Glacier Vaults: {vaults}")
+
+    return
 
 if __name__ == '__main__':
     while True:
-        service = input("Which service to test (dyn, s3, sqs, sns, cf, anything else to quit)?")
+        service = input("Which service to test (dyn, s3, glacier, sqs, sns, cf, anything else to quit)?")
         if service == 'dyn':
             dynodb_tests()
         elif service == 's3':
@@ -416,6 +426,8 @@ if __name__ == '__main__':
             sns_tests()
         elif service == 'cf':
             cf_tests()
+        elif service == 'glacier':
+            glacier_tests()
         else:
             exit()
             
