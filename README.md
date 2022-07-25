@@ -1,5 +1,9 @@
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0) ![pypi](https://img.shields.io/pypi/v/simple-AWS.svg) [![https://gitter.im/simple-AWS/community](https://badges.gitter.im/simple-AWS/community.svg)](https://gitter.im/simple-AWS/simple-AWS) ![issues](https://img.shields.io/github/issues/maxpearl/simpleAWS) ![last commit](https://img.shields.io/github/last-commit/maxpearl/simpleAWS)
 
+# Note
+
+**SimpleAWS was something that came out of work I was doing over the past 5 years. I have retired from tech work, and have decided that I'm pretty done with coding. I'd love someone to take this over, otherwise, consider this a dead project. I'm happy to answer questions about it, but I won't be contributing any code to it in the foreseeable future.**
+
 # SimpleAWS
 
 Version 0.1.6

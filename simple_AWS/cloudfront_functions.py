@@ -121,3 +121,4 @@ class Cloudfront_Simple(object):
 
         return response
     
+    def cf_create(self, domain, root, )
