@@ -1,4 +1,4 @@
-[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0) ![pypi](https://img.shields.io/pypi/v/simple-AWS.svg) [![https://gitter.im/simple-AWS/community](https://badges.gitter.im/simple-AWS/community.svg)](https://gitter.im/simple-AWS/simple-AWS) ![issues](https://img.shields.io/github/issues/maxpearl/simpleAWS) ![last commit](https://img.shields.io/github/last-commit/maxpearl/simpleAWS)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0) ![pypi](https://img.shields.io/pypi/v/simple-AWS.svg) ![issues](https://img.shields.io/github/issues/maxpearl/simpleAWS) ![last commit](https://img.shields.io/github/last-commit/maxpearl/simpleAWS)
 
 # Note
 
